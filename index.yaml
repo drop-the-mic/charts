@@ -2,87 +2,11 @@ apiVersion: v1
 entries:
   drop-the-mic:
   - apiVersion: v2
-    appVersion: 0.2.1
-    created: "2026-03-24T05:30:13.857882003Z"
-    description: Kubernetes-native AI Verification Operator
-    digest: af38a105e52295e338fa8fd9f1e02ba3a1d56a4b1d9262ca5f6fb94075c187c5
-    home: https://github.com/drop-the-mic/operator
-    keywords:
-    - kubernetes
-    - operator
-    - llm
-    - verification
-    - checklist
-    maintainers:
-    - name: DTM Team
-    name: drop-the-mic
-    type: application
-    urls:
-    - https://github.com/drop-the-mic/charts/releases/download/drop-the-mic-0.2.1/drop-the-mic-0.2.1.tgz
-    version: 0.2.1
-  - apiVersion: v2
-    appVersion: 0.2.0
-    created: "2026-03-24T04:58:43.515455889Z"
-    description: Kubernetes-native AI Verification Operator
-    digest: a632563205a85f02e470a36aa6d116d16c9f6be5f81d80a4a6863d59dbdb4458
-    home: https://github.com/drop-the-mic/operator
-    keywords:
-    - kubernetes
-    - operator
-    - llm
-    - verification
-    - checklist
-    maintainers:
-    - name: DTM Team
-    name: drop-the-mic
-    type: application
-    urls:
-    - https://github.com/drop-the-mic/charts/releases/download/drop-the-mic-0.2.0/drop-the-mic-0.2.0.tgz
-    version: 0.2.0
-  - apiVersion: v2
-    appVersion: 0.1.3
-    created: "2026-03-24T02:54:53.609742245Z"
-    description: Kubernetes-native AI Verification Operator
-    digest: 2b2cbbc22dac0ebc247199f0e21489138415841238f7b952ae855618ceb986ff
-    home: https://github.com/drop-the-mic/operator
-    keywords:
-    - kubernetes
-    - operator
-    - llm
-    - verification
-    - checklist
-    maintainers:
-    - name: DTM Team
-    name: drop-the-mic
-    type: application
-    urls:
-    - https://github.com/drop-the-mic/charts/releases/download/drop-the-mic-0.1.3/drop-the-mic-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v2
-    appVersion: 0.1.2
-    created: "2026-03-24T02:34:11.812012516Z"
-    description: Kubernetes-native AI Verification Operator
-    digest: 1cf6e97159570c9a1af3509c1a5916920636a8de5cb71ddc2e97a23898509921
-    home: https://github.com/drop-the-mic/operator
-    keywords:
-    - kubernetes
-    - operator
-    - llm
-    - verification
-    - checklist
-    maintainers:
-    - name: DTM Team
-    name: drop-the-mic
-    type: application
-    urls:
-    - https://github.com/drop-the-mic/charts/releases/download/drop-the-mic-0.1.2/drop-the-mic-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v2
     appVersion: 0.1.0
-    created: "2026-03-24T09:45:14.940157+09:00"
+    created: "2026-03-24T15:18:49.082717+09:00"
     description: Kubernetes-native AI Verification Operator
-    digest: 1863c0124e8bb57dec965accf8b3ba444c0765316f62417e9d97017117919ae7
-    home: https://github.com/drop-the-mic/drop-the-mic
+    digest: 600f6faff27315213cd18761f53293ae03c9032f3796de3ebc1a12b1583ca33c
+    home: https://github.com/drop-the-mic/operator
     keywords:
     - kubernetes
     - operator
@@ -90,13 +14,10 @@ entries:
     - verification
     - checklist
     maintainers:
-    - name: minseoky
-      url: https://github.com/minseoky
+    - name: DTM Team
     name: drop-the-mic
-    sources:
-    - https://github.com/drop-the-mic/drop-the-mic
     type: application
     urls:
     - https://drop-the-mic.github.io/charts/drop-the-mic-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-24T05:30:13.857901499Z"
+generated: "2026-03-24T15:18:49.081521+09:00"
