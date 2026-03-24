@@ -1,14 +1,8 @@
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "drop-the-mic.name" -}}
+{{- define "dtm.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
-{{/*
-Create a default fully qualified app name.
-*/}}
-{{- define "drop-the-mic.fullname" -}}
+{{- define "dtm.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -21,33 +15,20 @@ Create a default fully qualified app name.
 {{- end }}
 {{- end }}
 
-{{/*
-Common labels
-*/}}
-{{- define "drop-the-mic.labels" -}}
-helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- define "dtm.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{ include "drop-the-mic.selectorLabels" . }}
+app.kubernetes.io/part-of: drop-the-mic
 {{- end }}
 
-{{/*
-Selector labels
-*/}}
-{{- define "drop-the-mic.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "drop-the-mic.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+{{- define "dtm.operatorLabels" -}}
+{{ include "dtm.labels" . }}
+app.kubernetes.io/component: operator
+app.kubernetes.io/name: dtm-operator
 {{- end }}
 
-{{/*
-Operator image
-*/}}
-{{- define "drop-the-mic.operatorImage" -}}
-{{ .Values.operator.image.repository }}:{{ .Values.operator.image.tag | default .Chart.AppVersion }}
-{{- end }}
-
-{{/*
-UI server image
-*/}}
-{{- define "drop-the-mic.serverImage" -}}
-{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag | default .Chart.AppVersion }}
+{{- define "dtm.uiLabels" -}}
+{{ include "dtm.labels" . }}
+app.kubernetes.io/component: ui
+app.kubernetes.io/name: dtm-ui
 {{- end }}

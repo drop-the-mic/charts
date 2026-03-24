@@ -1,48 +1,62 @@
+{{- if .Values.operator.serviceAccount.create }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.operator.serviceAccount.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "dtm.operatorLabels" . | nindent 4 }}
+{{- end }}
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "drop-the-mic.fullname" . }}-operator
+  name: {{ include "dtm.fullname" . }}-operator
   labels:
-    {{- include "drop-the-mic.labels" . | nindent 4 }}
+    {{- include "dtm.operatorLabels" . | nindent 4 }}
 rules:
-  # Read-only access to cluster resources for verification
+  # CRD access
+  - apiGroups: ["dtm.dtm.io"]
+    resources: ["checklistpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["dtm.dtm.io"]
+    resources: ["checklistpolicies/status", "checklistpolicies/finalizers"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: ["dtm.dtm.io"]
+    resources: ["checklistresults"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # Read-only cluster access for tools
   - apiGroups: [""]
-    resources: ["pods", "nodes", "events", "services", "configmaps", "namespaces"]
+    resources: ["pods", "pods/log", "nodes", "events", "services", "configmaps", "secrets"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["apps"]
     resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
     verbs: ["get", "list", "watch"]
-  - apiGroups: ["autoscaling"]
-    resources: ["horizontalpodautoscalers"]
-    verbs: ["get", "list", "watch"]
   - apiGroups: ["policy"]
     resources: ["poddisruptionbudgets"]
     verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+  # Leader election
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
   - apiGroups: [""]
-    resources: ["pods/log"]
-    verbs: ["get"]
-  # CRD management
-  - apiGroups: ["dtm.dtm.io"]
-    resources: ["checklistpolicies"]
-    verbs: ["get", "list", "watch", "update", "patch"]
-  - apiGroups: ["dtm.dtm.io"]
-    resources: ["checklistpolicies/status"]
-    verbs: ["get", "update", "patch"]
-  - apiGroups: ["dtm.dtm.io"]
-    resources: ["checklistresults"]
-    verbs: ["get", "list", "watch", "create"]
+    resources: ["events"]
+    verbs: ["create", "patch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "drop-the-mic.fullname" . }}-operator
+  name: {{ include "dtm.fullname" . }}-operator
   labels:
-    {{- include "drop-the-mic.labels" . | nindent 4 }}
+    {{- include "dtm.operatorLabels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ include "drop-the-mic.fullname" . }}-operator
+  name: {{ include "dtm.fullname" . }}-operator
 subjects:
   - kind: ServiceAccount
-    name: {{ include "drop-the-mic.fullname" . }}-operator
-    namespace: {{ .Release.Namespace }}
+    name: {{ .Values.operator.serviceAccount.name }}
+    namespace: {{ .Values.namespace }}
