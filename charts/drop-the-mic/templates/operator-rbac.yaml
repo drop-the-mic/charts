@@ -1,0 +1,48 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "drop-the-mic.fullname" . }}-operator
+  labels:
+    {{- include "drop-the-mic.labels" . | nindent 4 }}
+rules:
+  # Read-only access to cluster resources for verification
+  - apiGroups: [""]
+    resources: ["pods", "nodes", "events", "services", "configmaps", "namespaces"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["policy"]
+    resources: ["poddisruptionbudgets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+  # CRD management
+  - apiGroups: ["dtm.dtm.io"]
+    resources: ["checklistpolicies"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: ["dtm.dtm.io"]
+    resources: ["checklistpolicies/status"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: ["dtm.dtm.io"]
+    resources: ["checklistresults"]
+    verbs: ["get", "list", "watch", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "drop-the-mic.fullname" . }}-operator
+  labels:
+    {{- include "drop-the-mic.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "drop-the-mic.fullname" . }}-operator
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "drop-the-mic.fullname" . }}-operator
+    namespace: {{ .Release.Namespace }}
