@@ -3,9 +3,9 @@ entries:
   drop-the-mic:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2026-03-24T15:18:49.082717+09:00"
+    created: "2026-03-24T15:21:57.7614+09:00"
     description: Kubernetes-native AI Verification Operator
-    digest: 600f6faff27315213cd18761f53293ae03c9032f3796de3ebc1a12b1583ca33c
+    digest: d18283bbe48272cba8fd857e5557b6ddd41b3fc642b03d912fdfd9b2e1f80c83
     home: https://github.com/drop-the-mic/operator
     keywords:
     - kubernetes
@@ -20,4 +20,4 @@ entries:
     urls:
     - https://drop-the-mic.github.io/charts/drop-the-mic-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-24T15:18:49.081521+09:00"
+generated: "2026-03-24T15:21:57.76044+09:00"
